@@ -1,7 +1,11 @@
 <?php
 
-define('BASE_DIR', realpath(__DIR__.'/../').DIRECTORY_SEPARATOR);
-define('PLATFORM_VERSION', json_decode(file_get_contents(BASE_DIR.'composer.json'))->version);
-define('CONFIG_FILE', BASE_DIR.'tests/config.test.php');
+use Symfony\Component\Dotenv\Dotenv;
 
-ob_start();
+require dirname(__DIR__).'/vendor/autoload.php';
+
+if (file_exists(dirname(__DIR__).'/config/bootstrap.php')) {
+    require dirname(__DIR__).'/config/bootstrap.php';
+} elseif (method_exists(Dotenv::class, 'bootEnv')) {
+    (new Dotenv())->bootEnv(dirname(__DIR__).'/.env');
+}
