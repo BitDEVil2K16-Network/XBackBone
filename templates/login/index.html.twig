@@ -13,7 +13,12 @@
                 </div>
                 <h2 class="card-title justify-center">App Name Here</h2>
                 <p class="text-center">optional line</p>
-                {{ form(form) }}
+                {{ form_start(form) }}
+                    {{ form_row(form.email) }}
+                    {{ form_row(form.password) }}
+
+                    <button type="submit" class="btn primary btn-block">Login</button>
+                {{ form_end(form) }}
             </div>
         </div>
     </div>

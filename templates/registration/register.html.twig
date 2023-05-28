@@ -1,17 +1,28 @@
-{% extends 'base.html.twig' %}
+{% extends 'auth.html.twig' %}
 
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <div class="relative flex flex-col justify-center h-screen overflow-hidden">
+        <div class="card w-full p-6 m-auto bg-base-100 shadow-xl lg:max-w-lg">
+            <div class="card-body">
+                <div class="avatar justify-center">
+                    <div class="w-28 rounded-xl">
+                        <img src="https://placehold.co/200" alt="logo"/>
+                    </div>
+                </div>
+                <h2 class="card-title justify-center">App Name Here</h2>
+                <p class="text-center">optional line</p>
+                {{ form_start(registrationForm) }}
+                {{ form_row(registrationForm.email) }}
+                {{ form_row(registrationForm.plainPassword, {
+                    label: 'Password'
+                }) }}
+                {{ form_row(registrationForm.agreeTerms) }}
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+                <button type="submit" class="btn">Register</button>
+                {{ form_end(registrationForm) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}
