@@ -16,9 +16,35 @@
 {%- endblock widget_attributes -%}
 
 {%- block form_label -%}
-    {%- set label_attr = label_attr|merge({ class: label_attr.class|default(label_class|default('block text-gray-800')) }) -%}
+    {%- set label_attr = label_attr|merge({ class: label_attr.class|default(label_class|default('label')) }) -%}
     {{- parent() -}}
 {%- endblock form_label -%}
+
+{%- block form_label_content -%}
+    {%- if label is empty -%}
+        {%- if label_format is not empty -%}
+            {% set label = label_format|replace({
+                '%name%': name,
+                '%id%': id,
+            }) %}
+        {%- else -%}
+            {% set label = name|humanize %}
+        {%- endif -%}
+    {%- endif -%}
+    {%- if translation_domain is same as(false) -%}
+        {%- if label_html is same as(false) -%}
+            <span class="label-text">{{- label -}}</span>
+        {%- else -%}
+            <span class="label-text">{{- label|raw -}}</span>
+        {%- endif -%}
+    {%- else -%}
+        {%- if label_html is same as(false) -%}
+            <span class="label-text">{{- label|trans(label_translation_parameters, translation_domain) -}}</span>
+        {%- else -%}
+            <span class="label-text">{{- label|trans(label_translation_parameters, translation_domain)|raw -}}</span>
+        {%- endif -%}
+    {%- endif -%}
+{% endblock form_label_content %}
 
 {%- block form_help -%}
     {%- set help_attr = help_attr|merge({ class: help_attr.class|default(help_class|default('mt-1 text-gray-600')) }) -%}
